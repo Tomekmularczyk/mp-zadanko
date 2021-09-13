@@ -1,46 +1,62 @@
-# Getting Started with Create React App
+# Zadanko
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Acceptance criteria:
 
-## Available Scripts
+> Chciałbym abyś stworzył aplikację, która składa się z elementów:
+>
+> 1. Obrazka :)
+> 2. Buttona "Następne"
+> 3. Buttona "Zapisz"
+> 4. Linka "Zapisane"
 
-In the project directory, you can run:
+Nie dostałem zadnych designow, to zrobie najprosciej jak mozna bez zadnego stylowania.
 
-### `yarn start`
+> Chciałbym żebyś skorzystał z https://api.nasa.gov/ i zrobił aplikację, która po otwarciu prezentuje losowe zdjęcie APOD (Astronomy Picture of the Day).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+By pobrać losowe zdjęcie pewnie bede musial wygenerować losową date. Wygląda tez na to, ze będe potrzebował API_KEY by pobrać zdjecie.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+> 1. Aplikacja po załadowaniu pokazuje zdjęcie APOD wraz z informacjami o nim (np. z jakiego dnia pochodzi etc.)
 
-### `yarn test`
+Okej, endpoint zwraca jakieś metadata.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> 2. Po kliknięciu następne w miejscu zdjęcia pokazuje się loader i wczytywane jest kolejne zdjęcie APOD .
 
-### `yarn build`
+Dodać loader, im prostszy tym lepszy.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> 3. Kliknięcie zapisz pozwala na dodanie zdjęcia do "ulubionych"
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Trzeba bedzie to zapisywać gdzieś np. local storage. Pytanie co zapisywać, raczej NIE chodzi o to by konwertować to zdjęcie do base64 i potem je wczytywać z localstorage.
+Bardziej zapisywać jakieś id/date zdjęcia, a później uzywając tej listy wczytać je na stronie.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> 4. Po kliknięciu w zapisane przechodzi do route'a /zapisane, który zawiera galerię zdjęć zapisanych do ulubionych
 
-### `yarn eject`
+Czyli będą 2 routy, główny `/` i `/zapisane`. Strona `/zapisane` będzie wczytywała zdjęcia z local storage i robiła po kolei requesty po zdjęcia.
+Przy przechodzeniu z jednej na drugą stronę moze to być troche nie optymalne, moge uzyc `swr` biblioteki która cachuje requesty co powinno dać lepszy UX. Łatwy win.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Wymagania techniczne:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> React, React Router + dowolne libki, które uważasz za słuszne TypeScript
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+me gusta
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+> Możesz użyć jakiegoś boilerplate etc., ale postaraj się, żeby projekt był w miarę lekki
 
-## Learn More
+Uzyje Create React Appa, jest lekki.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> Rozdzielenie warstwy widoku od warstwy danych/komunikacji API
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+ok
+
+> Ulubione zapisywane w local storage'u lub jakiejś innej lokalnej formie
+
+local storage brzmi dobrze
+
+> Zdjęcia NIGDY nie mogą się powtarzać, nawet po odświeżeniu strony. Chce zawsze mieć nowe zdjęcie, którego nie widziałem wcześniej.
+
+"którego nie widziałem wcześniej", czyli muszą być dwie listy. Jedna na zapisane, a jedna na wszystkie jakie byly widziane.
+
+Pewnie zanim wczytam zdjecie na glownej stronie bede musial przeleciec po liscie z localstorage i sprawdzic czy juz takiej daty nie bylo.
+
+Co z polem count w query, czy moge go uzyc? chyba nie bardzo bo nie mam pewnosci ze pobrane zdjecie bedzie unikalne.
+
+Jak upewnić sie ze nie wygeneruje daty która nie istnieje np 31 Luty? Najprosciej bedzie ograniczyc sie do 28 dni i do zeszlego roku :P
