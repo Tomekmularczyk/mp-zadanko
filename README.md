@@ -1,3 +1,8 @@
+<a href="https://www.loom.com/share/ba2897012d82467aaa227db09ec3c320">
+    <p>Gotowe rozwiązanie:</p>
+    <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/ba2897012d82467aaa227db09ec3c320-with-play.gif">
+</a>
+
 # Zadanko
 
 ### Acceptance criteria:
